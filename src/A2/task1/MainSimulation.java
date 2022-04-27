@@ -12,13 +12,6 @@ public class MainSimulation extends GlobalSimulation{
 		int task = 1;
     	State actState = new State(task);
 
-		System.out.println("\nStarting simulation for task: " + task + "\n");
-		System.out.println("Number of servers = " + actState.N);
-		System.out.println("Serving time = " + actState.x);
-		System.out.println("Mean arrival time = " + actState.lambda);
-		System.out.println("Time between measurements = " + actState.T);
-		System.out.println("Number of measurements = " + actState.M + "\n");
-
         insertEvent(ARRIVAL, 0);  
         insertEvent(MEASURE, actState.T);
         

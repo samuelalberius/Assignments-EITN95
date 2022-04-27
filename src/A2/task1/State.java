@@ -59,6 +59,14 @@ class State extends GlobalSimulation{
 			default:
 			break;
 		}
+
+		System.out.println("\nStarting simulation for task: " + task);
+		System.out.println("Number of servers = " + N);
+		System.out.println("Serving time = " + x);
+		System.out.println("Mean arrival time = " + lambda);
+		System.out.println("Time between measurements = " + T);
+		System.out.println("Number of measurements = " + M + "\n");
+
 		try {
 			file = new File("measurements.txt");
 			file.createNewFile();
@@ -107,7 +115,7 @@ class State extends GlobalSimulation{
 	}
 
 	private double expDist(double mean) {
-		double y = - Math.log(1 - slump.nextDouble()) * mean;
+		double y = - Math.log(1 - slump.nextDouble()) / mean;
 		return time + y;
 	}
 
