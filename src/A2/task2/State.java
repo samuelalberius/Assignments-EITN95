@@ -6,7 +6,7 @@ class State extends GlobalSimulation {
 	// Here follows the state variables and other variables that might be needed
 	// e.g. for measurements
 	public int numberInQueue = 0, accumulated = 0, noMeasurements = 0;
-	private double lambda = 4.0 / 60; // 4.0/60 rate per minute
+	public double lambda = 4.0 / 60; // 4.0/60 rate per minute
 	Random slump = new Random(); // This is just a random number generator
 	public LinkedList<Double> arrivalTimes = new LinkedList<Double>();
 	public ArrayList<Double> timesInSystem = new ArrayList<Double>();

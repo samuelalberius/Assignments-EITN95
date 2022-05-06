@@ -8,6 +8,7 @@ public class MainSimulation extends GlobalSimulation {
 		int NRUNS = 1000;
 		ArrayList<Double> times = new ArrayList<Double>();
 		ArrayList<Double> aveServiceTimes = new ArrayList<Double>();
+		ArrayList<Double> aveNoAccumulated = new ArrayList<Double>();
 
 		for (int i = 0; i < NRUNS; i++) {
 			time = 0; // set time = 0 start of simulation.
@@ -17,7 +18,7 @@ public class MainSimulation extends GlobalSimulation {
 			insertEvent(ARRIVAL, 0);
 			insertEvent(MEASURE, 1);
 
-			// work while there are either still people in queue or shift has ended
+			// work while there are either still people in queue or shift has ended 
 			while (time < workTime || actState.numberInQueue > 0) {
 				actEvent = eventList.fetchEvent();
 				time = actEvent.eventTime;
@@ -26,6 +27,7 @@ public class MainSimulation extends GlobalSimulation {
 			// add time at end of simulation
 			times.add(time);
 			aveServiceTimes.add(mean(actState.timesInSystem));
+			aveNoAccumulated.add(1.0*actState.accumulated/actState.noMeasurements);
 		}
 		// Simulation has been run NRUNS times.
 
@@ -37,7 +39,7 @@ public class MainSimulation extends GlobalSimulation {
 
 		System.out.println("Confidence interval (minutes): " + cIntervalServiceTime[0] + " - " + cIntervalServiceTime[1]);
 		System.out.println("Mean prescription filling time : " + meanServiceTime);
-
+		
 		// confidence interval for total opening hours
 		double meanTime = mean(times);
 		double stdTime = std(times, meanTime);
@@ -48,7 +50,7 @@ public class MainSimulation extends GlobalSimulation {
 		System.out.println("Mean time work finished: " + (9 + meanHours) + ":" + meanMinutes);
 		System.out.println(String.format("Confidence interval: %d : %d - %d : %d", 9 + (int) cIntervalTime[0] / 60,
 				(int) cIntervalTime[0] % 60, 9 + (int) cIntervalTime[1] / 60, (int) cIntervalTime[1] % 60));
-
+		System.out.println("Little's law: " + mean(aveNoAccumulated) + " = " + meanServiceTime*4.0/60);
 	}
 
 	private static double mean(List<Double> list) {
